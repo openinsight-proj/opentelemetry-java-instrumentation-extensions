@@ -57,11 +57,11 @@ jobs:
           VERSION: ${{ needs.check-versions.outputs.latest-version }}
         run: ./.github/scripts/update-sdk-version.sh $VERSION
 
-      - name: Use CLA approved github bot
-        run: .github/scripts/use-cla-approved-github-bot.sh
-
-      - name: Free disk space
-        run: .github/scripts/gha-free-disk-space.sh
+#      - name: Use CLA approved github bot
+#        run: .github/scripts/use-cla-approved-github-bot.sh
+#
+#      - name: Free disk space
+#        run: .github/scripts/gha-free-disk-space.sh
 
       - name: Set up JDK for running Gradle
         uses: actions/setup-java@v3
@@ -83,7 +83,7 @@ jobs:
         env:
           VERSION: ${{ needs.check-versions.outputs.latest-version }}
           # not using secrets.GITHUB_TOKEN since pull requests from that token do not run workflows
-          GH_TOKEN: ${{ secrets.OPENTELEMETRYBOT_GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
         run: |
           message="Update the OpenTelemetry SDK version to $VERSION"
           body="Update the OpenTelemetry SDK version to \`$VERSION\`."
