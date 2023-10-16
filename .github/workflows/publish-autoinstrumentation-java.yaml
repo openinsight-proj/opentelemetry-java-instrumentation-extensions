@@ -52,6 +52,9 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.ACTIONS_TOKEN }}
 
+      - name: Grable Build
+        run: ./gradlew extendedAgent
+
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
