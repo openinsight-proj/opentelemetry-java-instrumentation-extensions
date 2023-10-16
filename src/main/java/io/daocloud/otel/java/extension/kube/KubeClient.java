@@ -13,10 +13,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Objects;
 
-public class KubeController {
+public class KubeClient {
     final static String KUBE_DIR = "/.kube/config";
 
-    public KubeController() {
+    public KubeClient() {
         // file path to your KubeConfig
         String kubeConfigPath = System.getenv("HOME") + KUBE_DIR;
         try (FileReader fr = new FileReader(kubeConfigPath)) {

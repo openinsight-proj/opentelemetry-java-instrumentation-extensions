@@ -6,7 +6,7 @@
 package io.daocloud.otel.java.extension.nacos;
 
 import com.google.auto.service.AutoService;
-import io.daocloud.otel.java.extension.kube.KubeController;
+import io.daocloud.otel.java.extension.kube.KubeClient;
 import io.kubernetes.client.openapi.models.V1Namespace;
 import io.opentelemetry.sdk.autoconfigure.spi.AutoConfigurationCustomizer;
 import io.opentelemetry.sdk.autoconfigure.spi.AutoConfigurationCustomizerProvider;
@@ -49,7 +49,7 @@ public class NacosAutoConfigurationCustomizerProvider
     private Map<String, String> getNacosProperties() {
         Map<String, String> properties = new HashMap<>();
 
-        KubeController kubeController = new KubeController();
+        KubeClient kubeController = new KubeClient();
         V1Namespace ns;
         try {
             ns = kubeController.getNamespace("kube-system");
