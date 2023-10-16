@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Read version
-        run: echo "VERSION=$(cat autoinstrumentation/java/version.txt)" >> $GITHUB_ENV
+        run: echo "VERSION=$(cat autoinstrumentation/version.txt)" >> $GITHUB_ENV
 
       - name: Docker meta
         id: meta
@@ -48,7 +48,9 @@ jobs:
           password: ${{ secrets.ACTIONS_TOKEN }}
 
       - name: Grable Build
-        run: ./gradlew extendedAgent
+        run: |
+          ./gradlew extendedAgent
+          mv build/libs/* autoinstrumentation/
 
       - name: Build and push
         uses: docker/build-push-action@v5
