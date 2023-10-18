@@ -17,7 +17,7 @@ public class KubeClient {
     final static String KUBE_DIR = "/.kube/config";
 
     public KubeClient() {
-        // file path to your KubeConfig
+        // file path to KubeConfig
         String kubeConfigPath = System.getenv("HOME") + KUBE_DIR;
         try (FileReader fr = new FileReader(kubeConfigPath)) {
             // loading the out-of-cluster config, a kubeconfig from file-system
@@ -25,14 +25,14 @@ public class KubeClient {
             // set the global default api-client to the in-cluster one from above
             Configuration.setDefaultApiClient(client);
         } catch (IOException e) {
-            System.err.printf("create java-client error: %s", e.getMessage());
+            System.err.printf("create kube-java-client error: %s", e.getMessage());
         }
     }
 
     public V1Namespace getNamespace(String namespaceName) throws ApiException {
         V1NamespaceList list = new CoreV1Api().listNamespace(null, null, null, null, null, null, null, null, null, null);
         for (V1Namespace item : list.getItems()) {
-            if (Objects.equals(namespaceName, item.getMetadata().getName())) {
+            if (Objects.equals(namespaceName, Objects.requireNonNull(item.getMetadata()).getName())) {
                 return item;
             }
         }

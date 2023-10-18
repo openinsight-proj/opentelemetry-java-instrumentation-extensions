@@ -90,13 +90,14 @@ dependencies {
      See https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/docs/contributing/writing-instrumentation-module.md#advice-classes
      */
     compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
-    compileOnly 'io.kubernetes:client-java:18.0.1'
+
     /*
-    This dependency is required for DemoSpanProcessor both during compile and runtime.
+    This dependency is required for NacosAutoConfigurationCustomizerProvider both during compile and runtime.
     Only dependencies added to `implementation` configuration will be picked up by Shadow plugin
     and added to the resulting jar for our extension's distribution.
      */
-    implementation 'org.apache.commons:commons-lang3:3.13.0'
+    // https://mvnrepository.com/artifact/io.kubernetes/client-java
+    implementation("io.kubernetes:client-java:18.0.1")
 
     //All dependencies below are only for tests
     testImplementation("org.testcontainers:testcontainers:1.19.1")

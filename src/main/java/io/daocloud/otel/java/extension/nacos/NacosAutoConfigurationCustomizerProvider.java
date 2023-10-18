@@ -50,26 +50,28 @@ public class NacosAutoConfigurationCustomizerProvider
         Map<String, String> properties = new HashMap<>();
 
         KubeClient kubeController = new KubeClient();
-        V1Namespace ns;
+        V1Namespace ns = null;
         try {
             ns = kubeController.getNamespace("kube-system");
         } catch (Exception e) {
-            System.err.printf("java-client get namespace error: %s", e.getMessage());
-            return properties;
+            System.err.printf("java-client get kube-system namespace error: %s", e.getMessage());
         }
 
-        String clusterId = Objects.isNull(ns.getMetadata().getUid()) ? "" : ns.getMetadata().getUid();
+        String clusterId = "";
+        if (!Objects.isNull(ns)) {
+            clusterId = Objects.isNull(Objects.requireNonNull(ns.getMetadata()).getUid()) ? "" : ns.getMetadata().getUid();
+        }
+
         String podName = Objects.isNull(System.getenv("OTEL_RESOURCE_ATTRIBUTES_POD_NAME")) ? "" : System.getenv("OTEL_RESOURCE_ATTRIBUTES_POD_NAME");
         String k8sNamespace = Objects.isNull(System.getenv("K8S_NAMESPACE")) ? "" : System.getenv("K8S_NAMESPACE");
 
-        try {
-            Class.forName(SPRING_CLOUD_DEP);
-            properties.put("spring.cloud.nacos.discovery.metadata.k8s_cluster_id", clusterId);
-            properties.put("spring.cloud.nacos.discovery.metadata.k8s_namespace_name", k8sNamespace);
-            properties.put("spring.cloud.nacos.discovery.metadata.k8s_pod_name", podName);
-        } catch (Exception ignored) {
-        }
+        //TODO: if com.alibaba.cloud.nacos.discovery.NacosDiscoveryAutoConfiguration claszz not found, do not set properties.
+        properties.put("spring.cloud.nacos.discovery.metadata.k8s_cluster_id", clusterId);
+        properties.put("spring.cloud.nacos.discovery.metadata.k8s_namespace_name", k8sNamespace);
+        properties.put("spring.cloud.nacos.discovery.metadata.k8s_pod_name", podName);
 
-        return properties;
+        properties.forEach(System::setProperty);
+
+        return null;
     }
 }
