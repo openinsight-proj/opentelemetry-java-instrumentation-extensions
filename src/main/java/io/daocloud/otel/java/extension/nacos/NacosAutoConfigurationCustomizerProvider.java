@@ -70,7 +70,10 @@ public class NacosAutoConfigurationCustomizerProvider
         properties.put("spring.cloud.nacos.discovery.metadata.k8s_namespace_name", k8sNamespace);
         properties.put("spring.cloud.nacos.discovery.metadata.k8s_pod_name", podName);
 
-        properties.forEach(System::setProperty);
+        properties.forEach((k,v)->{
+            System.out.println("OTEL Agent Extension[Nacos] setting property, key: " + k +" ,value: "+ v);
+            System.setProperty(k,v);
+        });
 
         return new HashMap<>();
     }
