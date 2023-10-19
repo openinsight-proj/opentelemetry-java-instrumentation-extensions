@@ -96,8 +96,6 @@ dependencies {
     Only dependencies added to `implementation` configuration will be picked up by Shadow plugin
     and added to the resulting jar for our extension's distribution.
      */
-    // https://mvnrepository.com/artifact/io.kubernetes/client-java
-    implementation("io.kubernetes:client-java:18.0.1")
 
     //All dependencies below are only for tests
     testImplementation("org.testcontainers:testcontainers:1.19.1")

@@ -6,8 +6,6 @@
 package io.daocloud.otel.java.extension.nacos;
 
 import com.google.auto.service.AutoService;
-import io.daocloud.otel.java.extension.kube.KubeClient;
-import io.kubernetes.client.openapi.models.V1Namespace;
 import io.opentelemetry.sdk.autoconfigure.spi.AutoConfigurationCustomizer;
 import io.opentelemetry.sdk.autoconfigure.spi.AutoConfigurationCustomizerProvider;
 import io.opentelemetry.sdk.autoconfigure.spi.ConfigProperties;
@@ -34,34 +32,13 @@ public class NacosAutoConfigurationCustomizerProvider
 
     @Override
     public void customize(AutoConfigurationCustomizer autoConfiguration) {
-        autoConfiguration
-                .addTracerProviderCustomizer(this::configureSdkTracerProvider)
-                .addPropertiesSupplier(this::getNacosProperties);
+        autoConfiguration.addPropertiesSupplier(this::setNacosPropertiesCallback);
     }
 
-    private SdkTracerProviderBuilder configureSdkTracerProvider(
-            SdkTracerProviderBuilder tracerProvider, ConfigProperties config) {
-
-        return tracerProvider
-                .setSpanLimits(SpanLimits.builder().setMaxNumberOfAttributes(1024).build());
-    }
-
-    private Map<String, String> getNacosProperties() {
+    private Map<String, String> setNacosPropertiesCallback() {
         Map<String, String> properties = new HashMap<>();
 
-        KubeClient kubeController = new KubeClient();
-        V1Namespace ns = null;
-        try {
-            ns = kubeController.getNamespace("kube-system");
-        } catch (Exception e) {
-            System.err.printf("java-client get kube-system namespace error: %s", e.getMessage());
-        }
-
-        String clusterId = "";
-        if (!Objects.isNull(ns)) {
-            clusterId = Objects.isNull(Objects.requireNonNull(ns.getMetadata()).getUid()) ? "" : ns.getMetadata().getUid();
-        }
-
+        String clusterId = Objects.isNull(System.getenv("K8S_CLUSTER_UID")) ? "" : System.getenv("K8S_CLUSTER_UID");
         String podName = Objects.isNull(System.getenv("OTEL_RESOURCE_ATTRIBUTES_POD_NAME")) ? "" : System.getenv("OTEL_RESOURCE_ATTRIBUTES_POD_NAME");
         String k8sNamespace = Objects.isNull(System.getenv("K8S_NAMESPACE")) ? "" : System.getenv("K8S_NAMESPACE");
 
