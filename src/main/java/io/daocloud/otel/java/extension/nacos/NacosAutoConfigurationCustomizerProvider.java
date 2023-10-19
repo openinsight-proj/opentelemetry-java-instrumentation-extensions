@@ -72,6 +72,6 @@ public class NacosAutoConfigurationCustomizerProvider
 
         properties.forEach(System::setProperty);
 
-        return null;
+        return new HashMap<>();
     }
 }
