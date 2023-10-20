@@ -38,7 +38,7 @@ public class NacosAutoConfigurationCustomizerProvider
     private Map<String, String> setNacosPropertiesCallback() {
         Map<String, String> properties = new HashMap<>();
 
-        String clusterId = Objects.isNull(System.getenv("K8S_CLUSTER_UID")) ? "" : System.getenv("K8S_CLUSTER_UID");
+        String clusterId = Objects.isNull(System.getenv("OTEL_K8S_CLUSTER_UID")) ? "" : System.getenv("OTEL_K8S_CLUSTER_UID");
         String podName = Objects.isNull(System.getenv("OTEL_RESOURCE_ATTRIBUTES_POD_NAME")) ? "" : System.getenv("OTEL_RESOURCE_ATTRIBUTES_POD_NAME");
         String k8sNamespace = Objects.isNull(System.getenv("K8S_NAMESPACE")) ? "" : System.getenv("K8S_NAMESPACE");
 
