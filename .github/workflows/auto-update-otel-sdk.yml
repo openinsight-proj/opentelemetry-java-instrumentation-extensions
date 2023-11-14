@@ -57,7 +57,9 @@ jobs:
       - name: Update version
         env:
           VERSION: ${{ needs.check-versions.outputs.latest-version }}
-        run: ./.github/scripts/update-sdk-version.sh $VERSION
+        run: |
+          chmod -R 777 ./.github/scripts/update-sdk-version.sh
+          ./.github/scripts/update-sdk-version.sh $VERSION
 
 #      - name: Use CLA approved github bot
 #        run: .github/scripts/use-cla-approved-github-bot.sh
