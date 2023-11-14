@@ -21,8 +21,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.OI_GITHUB_TOKEN }}
         run: |
-          current_version=$(grep -Po "val otelSdkVersion = \"\K[0-9]+.[0-9]+.[0-9]+" \
-                                dependencyManagement/build.gradle.kts)
+          current_version=$(grep -Po "opentelemetrySdk           : \"\K[0-9]+.[0-9]+.[0-9]+" build.gradle)
           latest_version=$(gh release view \
                                --repo open-telemetry/opentelemetry-java \
                                --json tagName \
@@ -30,7 +29,7 @@ jobs:
                              | sed 's/^v//')
 
           matches=$(gh pr list \
-                        --author opentelemetrybot \
+                        --author openinsightbot \
                         --state open \
                         --search "in:title \"Update the OpenTelemetry SDK version to $latest_version\"")
           if [ ! -z "$matches" ]
@@ -69,14 +68,14 @@ jobs:
           distribution: temurin
           java-version: 17.0.6
 
-      - name: Update license report
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: generateLicenseReport
-
-      - name: Undo license report clean
-        if: failure()
-        run: git checkout -- licenses
+#      - name: Update license report
+#        uses: gradle/gradle-build-action@v2
+#        with:
+#          arguments: generateLicenseReport
+#
+#      - name: Undo license report clean
+#        if: failure()
+#        run: git checkout -- licenses
 
       - name: Create pull request against main
         if: success() || failure()
