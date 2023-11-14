@@ -86,8 +86,10 @@ jobs:
         run: |
           message="Update the OpenTelemetry SDK version to $VERSION"
           body="Update the OpenTelemetry SDK version to \`$VERSION\`."
-          branch="opentelemetrybot/update-opentelemetry-sdk-to-${VERSION}"
+          branch="openinsightbot/update-opentelemetry-sdk-to-${VERSION}"
 
+          git config user.name 'openinsightbot'
+          git config user.email 'openinsightbot@users.noreply.github.com'
           git checkout -b $branch
           git commit -a -m "$message"
           git push --set-upstream origin $branch
