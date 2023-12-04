@@ -40,7 +40,7 @@ public class NacosAutoConfigurationCustomizerProvider
 
         String clusterId = Objects.isNull(System.getenv("OTEL_K8S_CLUSTER_UID")) ? "" : System.getenv("OTEL_K8S_CLUSTER_UID");
         String podName = Objects.isNull(System.getenv("OTEL_RESOURCE_ATTRIBUTES_POD_NAME")) ? "" : System.getenv("OTEL_RESOURCE_ATTRIBUTES_POD_NAME");
-        String k8sNamespace = Objects.isNull(System.getenv("K8S_NAMESPACE")) ? "" : System.getenv("K8S_NAMESPACE");
+        String k8sNamespace = Objects.isNull(System.getenv("OTEL_K8S_NAMESPACE_NAME")) ? "" : System.getenv("OTEL_K8S_NAMESPACE_NAME");
 
         //TODO: if com.alibaba.cloud.nacos.discovery.NacosDiscoveryAutoConfiguration claszz not found, do not set properties.
         properties.put("spring.cloud.nacos.discovery.metadata.k8s_cluster_id", clusterId);
