@@ -17,6 +17,8 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-22.04
+    env:
+      TAG: ${{ github.sha }}
     steps:
       - uses: actions/checkout@v4
 
@@ -32,7 +34,7 @@ jobs:
           images: |
             ghcr.io/openinsight-proj/autoinstrumentation-java
           tags: |
-            type=match,pattern=v(.*),group=1,value=v${{ env.VERSION }}
+            type=match,pattern=v(.*),group=1,value=v${{ env.VERSION }}-${{ env.TAG }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
