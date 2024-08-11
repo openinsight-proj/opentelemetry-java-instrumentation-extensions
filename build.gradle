@@ -13,8 +13,9 @@ plugins {
     id "com.github.johnrengelman.shadow" version "8.1.1"
     id "com.diffplug.spotless" version "6.22.0"
 
-    id "io.opentelemetry.instrumentation.muzzle-generation" version "1.32.0"
-    id "io.opentelemetry.instrumentation.muzzle-check" version "1.32.0"
+    // https://plugins.gradle.org/plugin/io.opentelemetry.instrumentation.muzzle-generation
+    id "io.opentelemetry.instrumentation.muzzle-generation" version "1.32.0-alpha"
+    id "io.opentelemetry.instrumentation.muzzle-check" version "1.32.0-alpha"
 }
 
 group 'io.daocloud.otel.java.extension.nacos'
