@@ -1,9 +1,9 @@
 name: Auto-update OpenTelemetry Extension
 
 on:
-#  schedule:
-#    # hourly at minute 46
-#    - cron: "46 * * * *"
+  schedule:
+    # hourly at minute 46
+    - cron: "46 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -58,8 +58,8 @@ jobs:
         env:
           VERSION: ${{ needs.check-versions.outputs.latest-version }}
         run: |
-          chmod -R 777 ./.github/scripts/update-sdk-version.sh
-          ./.github/scripts/update-sdk-version.sh $VERSION
+          chmod -R 777 ./.github/scripts/update-version.sh
+          ./.github/scripts/update-version.sh $VERSION
 
 #      - name: Use CLA approved github bot
 #        run: .github/scripts/use-cla-approved-github-bot.sh
