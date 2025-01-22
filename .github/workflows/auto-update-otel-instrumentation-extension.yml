@@ -35,17 +35,12 @@ jobs:
                         --author openinsightbot \
                         --state open \
                         --search "in:title \"Update the OpenTelemetry Java Instrumentation Extension version to $latest_version\"")
-# TODO: remove me.
-#          if [ ! -z "$matches" ]
-#          then
-#            already_opened=true
-#          fi
           already_opened=true
 
           echo "current-version=$current_version" >> $GITHUB_OUTPUT
           echo "latest-version=$latest_version" >> $GITHUB_OUTPUT
           echo "already-opened=$already_opened" >> $GITHUB_OUTPUT
-          echo "release_notes=$release_notes" >> $GITHUB_OUTPUT
+          echo "release-notes=$release_notes" >> $GITHUB_OUTPUT
 
   update-otel-extension:
     runs-on: ubuntu-latest
@@ -60,7 +55,7 @@ jobs:
       - name: Update version
         env:
           VERSION: ${{ needs.check-versions.outputs.latest-version }}
-          RELEASE_NOTE: ${{ needs.check-versions.outputs.release_notes }}
+          RELEASE_NOTES: ${{ needs.check-versions.outputs.release-notes }}
         run: |
           chmod -R 777 ./.github/scripts/update-version.sh
           ./.github/scripts/update-version.sh $VERSION
@@ -88,7 +83,7 @@ jobs:
           GH_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
         run: |
           message="Update the OpenTelemetry otel extension version to $VERSION"
-          body="Update the OpenTelemetry otel extension version to \`$VERSION\`. \n # ⚠️Changelog: \n \`$RELEASE_NOTE\` "
+          body="Update the OpenTelemetry otel extension version to \`$VERSION\`. \n # ⚠️Changelog: \n \`$RELEASE_NOTES\` "
           branch="openinsightbot/update-opentelemetry-extension-to-${VERSION}"
 
           git config user.name 'openinsightbot'
