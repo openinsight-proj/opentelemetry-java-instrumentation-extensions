@@ -10,12 +10,12 @@ plugins {
     into a single jar.
     See https://imperceptiblethoughts.com/shadow/ for more details about Shadow plugin.
      */
-    id "com.github.johnrengelman.shadow" version "8.1.1"
-    id "com.diffplug.spotless" version "6.22.0"
+    id "com.gradleup.shadow" version "8.3.5"
+    id "com.diffplug.spotless" version "6.25.0"
 
     // https://plugins.gradle.org/plugin/io.opentelemetry.instrumentation.muzzle-generation
-    id "io.opentelemetry.instrumentation.muzzle-generation" version "2.11.0-alpha"
-    id "io.opentelemetry.instrumentation.muzzle-check" version "2.11.0-alpha"
+    id "io.opentelemetry.instrumentation.muzzle-generation" version "2.12.0-alpha"
+    id "io.opentelemetry.instrumentation.muzzle-check" version "2.12.0-alpha"
 }
 
 group 'io.daocloud.otel.java.extension.nacos'
@@ -24,13 +24,13 @@ version '1.0'
 ext {
     versions = [
         // this line is managed by .github/scripts/update-sdk-version.sh
-        opentelemetrySdk           : "1.45.0",
+        opentelemetrySdk           : "1.46.0",
 
         // these lines are managed by .github/scripts/update-version.sh
-        opentelemetryJavaagent     : "2.11.0",
-        opentelemetryJavaagentAlpha: "2.11.0-alpha",
+        opentelemetryJavaagent     : "2.12.0",
+        opentelemetryJavaagentAlpha: "2.12.0-alpha",
 
-        junit                      : "5.10.0"
+        junit                      : "5.11.4"
     ]
 
     deps = [
