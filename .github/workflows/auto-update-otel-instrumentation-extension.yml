@@ -30,7 +30,8 @@ jobs:
                                --json tagName \
                                --jq .tagName \
                              | sed 's/^v//')
-          release_notes=$(gh release view --repo open-telemetry/opentelemetry-java-instrumentation)
+          release_notes=$(gh release view \
+                               --repo open-telemetry/opentelemetry-java-instrumentation )
           matches=$(gh pr list \
                         --author openinsightbot \
                         --state open \
