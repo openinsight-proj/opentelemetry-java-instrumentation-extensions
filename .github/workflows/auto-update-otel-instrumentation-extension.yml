@@ -25,14 +25,21 @@ jobs:
           GH_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
         run: |
           current_version=$(grep -Po "opentelemetryJavaagent     : \"\K[0-9]+.[0-9]+.[0-9]+" build.gradle)
-          latest_version=v2.23.0
-          release_notes=$(gh release view \
-                               --repo open-telemetry/opentelemetry-java-instrumentation )
+          latest_version=$(gh release view \
+                               --repo open-telemetry/opentelemetry-java-instrumentation \
+                               --json tagName \
+                               --jq .tagName \
+                             | sed 's/^v//')
+          release_notes=$(gh release view --repo open-telemetry/opentelemetry-java-instrumentation)
           matches=$(gh pr list \
                         --author openinsightbot \
                         --state open \
                         --search "in:title \"Update the OpenTelemetry Java Instrumentation Extension version to $latest_version\"")
-          already_opened=true
+
+          if [ ! -z "$matches" ]
+          then
+            already_opened=true
+          fi
 
           echo "current-version=$current_version" >> $GITHUB_OUTPUT
           echo "latest-version=$latest_version" >> $GITHUB_OUTPUT
