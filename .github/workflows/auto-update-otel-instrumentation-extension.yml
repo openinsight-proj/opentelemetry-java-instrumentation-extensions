@@ -30,7 +30,6 @@ jobs:
                                --json tagName \
                                --jq .tagName \
                              | sed 's/^v//')
-          release_notes=$(gh release view --repo open-telemetry/opentelemetry-java-instrumentation)
           matches=$(gh pr list \
                         --author openinsightbot \
                         --state open \
@@ -44,7 +43,6 @@ jobs:
           echo "current-version=$current_version" >> $GITHUB_OUTPUT
           echo "latest-version=$latest_version" >> $GITHUB_OUTPUT
           echo "already-opened=$already_opened" >> $GITHUB_OUTPUT
-          echo "release-notes=$release_notes" >> $GITHUB_OUTPUT
 
   update-otel-extension:
     runs-on: ubuntu-latest
@@ -87,7 +85,7 @@ jobs:
           GH_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
         run: |
           message="Update the OpenTelemetry otel extension version to $VERSION"
-          body="Update the OpenTelemetry otel extension version to \`$VERSION\`. \n # ⚠️Changelog: \n \`$RELEASE_NOTES\` "
+          body="Update the OpenTelemetry otel extension version to \`$VERSION\`. \n # ⚠️Changelog: \n View on GitHub: https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/tag/v\`$VERSION\` "
           branch="openinsightbot/update-opentelemetry-extension-to-${VERSION}"
 
           git config user.name 'openinsightbot'
