@@ -25,7 +25,7 @@ jobs:
       - name: Read version
         id: read-version
         run: |
-          echo "VERSION=$(grep -Po "opentelemetrySdk           : \"\K[0-9]+.[0-9]+.[0-9]+" build.gradle)" >> $GITHUB_ENV
+          echo "VERSION=$(grep -Po "opentelemetryJavaagent     : \"\K[0-9]+.[0-9]+.[0-9]+" build.gradle)" >> $GITHUB_ENV
 
       - name: Docker meta
         id: meta
