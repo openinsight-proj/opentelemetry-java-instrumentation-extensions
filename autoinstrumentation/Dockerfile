@@ -3,4 +3,6 @@ FROM busybox
 
 COPY opentelemetry-javaagent.jar /javaagent.jar
 
+COPY shardingsphere-agent /shardingsphere-agent
+
 RUN chmod -R go+r /javaagent.jar
