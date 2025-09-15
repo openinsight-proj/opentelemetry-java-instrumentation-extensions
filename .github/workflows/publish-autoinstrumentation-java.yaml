@@ -22,9 +22,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Free disk space
-        run: .github/scripts/gha-free-disk-space.sh
-
       - uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
         with:
           distribution: temurin
