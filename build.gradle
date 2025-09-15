@@ -10,15 +10,15 @@ plugins {
     into a single jar.
     See https://imperceptiblethoughts.com/shadow/ for more details about Shadow plugin.
      */
-    id "com.gradleup.shadow" version "8.3.5"
-    id "com.diffplug.spotless" version "6.25.0"
+    id "com.gradleup.shadow" version "9.1.0"
+    id "com.diffplug.spotless" version "7.2.1"
 
     // https://plugins.gradle.org/plugin/io.opentelemetry.instrumentation.muzzle-generation
     id "io.opentelemetry.instrumentation.muzzle-generation" version "2.20.0-alpha"
     id "io.opentelemetry.instrumentation.muzzle-check" version "2.20.0-alpha"
 }
 
-group 'io.daocloud.otel.java.extension.nacos'
+group 'io.daocloud.otel.java.extension'
 version '1.0'
 
 ext {
