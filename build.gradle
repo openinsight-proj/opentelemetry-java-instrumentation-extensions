@@ -14,8 +14,8 @@ plugins {
     id "com.diffplug.spotless" version "7.2.1"
 
     // https://plugins.gradle.org/plugin/io.opentelemetry.instrumentation.muzzle-generation
-    id "io.opentelemetry.instrumentation.muzzle-generation" version "2.23.0-alpha"
-    id "io.opentelemetry.instrumentation.muzzle-check" version "2.23.0-alpha"
+    id "io.opentelemetry.instrumentation.muzzle-generation" version "2.24.0-alpha"
+    id "io.opentelemetry.instrumentation.muzzle-check" version "2.24.0-alpha"
 }
 
 group 'io.daocloud.otel.java.extension'
@@ -27,8 +27,8 @@ ext {
         opentelemetrySdk           : "1.58.0",
 
         // these lines are managed by .github/scripts/update-version.sh
-        opentelemetryJavaagent     : "2.23.0",
-        opentelemetryJavaagentAlpha: "2.23.0-alpha",
+        opentelemetryJavaagent     : "2.24.0",
+        opentelemetryJavaagentAlpha: "2.24.0-alpha",
 
         junit                      : "5.11.4"
     ]
