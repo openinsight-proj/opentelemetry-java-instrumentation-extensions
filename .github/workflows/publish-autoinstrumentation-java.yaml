@@ -17,10 +17,11 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    env:
-      TAG: ${{ github.sha }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set short SHA
+        run: echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV
 
       - uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
         with:
